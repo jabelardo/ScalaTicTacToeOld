@@ -11,8 +11,8 @@ import scala.collection.mutable._
 
 class TicTacToeSpec extends Specification {
  	
-  	def buildBoard(array: Array[Array[Char]]): Array[Array[Player]] = {
-  		var boardBuilder = new ArrayBuffer[Array[Player]]()
+  	def buildCells(array: Array[Array[Char]]): Array[Array[Player]] = {
+  		var cellsBuilder = new ArrayBuffer[Array[Player]]()
 		 for (rowIdx <- 0 until array.size) {
 		 	val row = array(rowIdx)
 		 	var rowBuilder = new ArrayBuffer[Player]()
@@ -25,90 +25,93 @@ class TicTacToeSpec extends Specification {
 					rowBuilder += Nobody
     			}
 		   }  		
-		   boardBuilder += rowBuilder.toArray
+		   cellsBuilder += rowBuilder.toArray
 	   	}
-	   	boardBuilder.toArray
+	   	cellsBuilder.toArray
   	}
 
  	"board" should {
     	"be initialized as a 3 X 3 array of blank characters" in {
-    		val ticTacToe = new TicTacToe
-    		val blankBoard = buildBoard(Array(Array(' ',' ',' '),
+    		val board = new Board
+    		val blankBoard = buildCells(Array(Array(' ',' ',' '),
 					                          Array(' ',' ',' '),
 					                          Array(' ',' ',' ')))
-      		ticTacToe.board.deep must beEqualTo(blankBoard.deep)
+      		board.cels.deep must beEqualTo(blankBoard.deep)
     	}
   	}
 
 	"detectWinner" should {
   		"return Nobody if there is not a winner" in {
-  			val ticTacToe = new TicTacToe
-  			ticTacToe.detectWinner must beEqualTo(Nobody)
+  			val board = new Board
+  			board.detectWinner must beEqualTo(Nobody)
   		}
   		"return PlayerX if it has a winning row" in {
-  			val ticTacToe = new TicTacToe
-  			ticTacToe.board = buildBoard(Array(Array('X','X','X'),
+  			val board = new Board
+  			board.cels = buildCells(Array(Array('X','X','X'),
   		                            		   Array('O',' ','O'),
   		                            		   Array(' ',' ',' ')))
-  			ticTacToe.detectWinner must beEqualTo(PlayerX)
+  			board.detectWinner must beEqualTo(PlayerX)
   		}
   		"return PlayerO if it has a winning column" in {
-  			val ticTacToe = new TicTacToe
-  			ticTacToe.board = buildBoard(Array(Array('O',' ','X'),
+  			val board = new Board
+  			board.cels = buildCells(Array(Array('O',' ','X'),
   		                            	 	   Array('O','X',' '),
   		                            	 	   Array('O',' ','X')))
-  			ticTacToe.detectWinner must beEqualTo(PlayerO)
+  			board.detectWinner must beEqualTo(PlayerO)
   		}
   		"return PlayerX if it has a winning descending diagonal" in {
-  			val ticTacToe = new TicTacToe
-  			ticTacToe.board = buildBoard(Array(Array('X',' ',' '),
+  			val board = new Board
+  			board.cels = buildCells(Array(Array('X',' ',' '),
   		                            		   Array('O','X','O'),
   		                            		   Array(' ',' ','X')))
-  			ticTacToe.detectWinner must beEqualTo(PlayerX)
+  			board.detectWinner must beEqualTo(PlayerX)
   		}
   		"return PlayerO if it has a winning ascending diagonal" in {
-  			val ticTacToe = new TicTacToe
-  			ticTacToe.board = buildBoard(Array(Array('X',' ','O'),
+  			val board = new Board
+  			board.cels = buildCells(Array(Array('X',' ','O'),
 	  		                            	   Array(' ','O','X'),
 	  		                            	   Array('O',' ','X')))
-  			ticTacToe.detectWinner must beEqualTo(PlayerO)
+  			board.detectWinner must beEqualTo(PlayerO)
   		}
   	}
 
 	"detectTie" should {
   		"return true if the board is full and there is not a winner" in {
-  			val ticTacToe = new TicTacToe
-  			ticTacToe.board = buildBoard(Array(Array('X','O','X'),
+  			val board = new Board
+  			board.cels = buildCells(Array(Array('X','O','X'),
   		                            		   Array('O','O','X'),
   		                            		   Array('X','X','O')))
-  			ticTacToe.detectTie must beEqualTo(true)
+  			board.detectTie must beEqualTo(true)
   		}
   	}
 
   	"currentPlayer" should {
     	"be initialized with PlayerX" in {
-    		(new TicTacToe).currentPlayer must 
-      			beEqualTo(PlayerX)	
+    		val board = new Board
+    		board.currentPlayer must beEqualTo(PlayerX)	
     	}
   	}
 
   	"move" should {
   		"set current player letter to the move position" in {
-  			val ticTacToe = new TicTacToe
-  			ticTacToe.move(0,0)
-  			ticTacToe.board(0)(0) must beEqualTo(PlayerX)
+  			val board = new Board
+  			board.move(0,0)
+  			board.cels(0)(0) must beEqualTo(PlayerX)
   		}
   		"turn currentPlayer from X to O" in {
-  			val ticTacToe = new TicTacToe
-  			ticTacToe.move(0,0)
-  			ticTacToe.currentPlayer must beEqualTo(PlayerO)
+  			val board = new Board
+  			board.move(0,0)
+  			board.currentPlayer must beEqualTo(PlayerO)
   		}
   		"turn currentPlayer from O to X" in {
-  			val ticTacToe = new TicTacToe
-  			ticTacToe.move(0,0)
-  			ticTacToe.move(0,1)
-  			ticTacToe.currentPlayer must beEqualTo(PlayerX)
+  			val board = new Board
+  			board.move(0,0)
+  			board.move(0,1)
+  			board.currentPlayer must beEqualTo(PlayerX)
   		}
   	}
+
+
+
 
 }

@@ -13,9 +13,9 @@ case object PlayerX extends Player('X')
 case object PlayerO extends Player('O')
 case object Nobody extends Player(' ')
 
-class TicTacToe {
+class Board {
   val DIM = 3
-  var board = Array.fill[Player](DIM, DIM) { Nobody } 
+  var cels = Array.fill[Player](DIM, DIM) { Nobody } 
   var currentPlayer: Player = PlayerX
 
   def detectWinner() = { 
@@ -27,10 +27,10 @@ class TicTacToe {
 
   private def detectRowWinner(): Player = {
 	for (row <- 0 until DIM) {
-	  if (board(row)(0) != Nobody
-	  	  && board(row)(0) == board(row)(1) 
-	  	  && board(row)(0) == board(row)(2)) {
-	  	return board(row)(0)
+	  if (cels(row)(0) != Nobody
+	  	  && cels(row)(0) == cels(row)(1) 
+	  	  && cels(row)(0) == cels(row)(2)) {
+	  	return cels(row)(0)
 	  }
 	}
 	Nobody
@@ -38,25 +38,25 @@ class TicTacToe {
 
   private def detectColumnWinner(): Player = {
 	for (column <- 0 until DIM) {
-	  if (board(0)(column) != Nobody
-	  	  && board(0)(column) == board(1)(column)
-	  	  && board(0)(column) == board(2)(column)) {
-	  	return board(0)(column)
+	  if (cels(0)(column) != Nobody
+	  	  && cels(0)(column) == cels(1)(column)
+	  	  && cels(0)(column) == cels(2)(column)) {
+	  	return cels(0)(column)
 	  }
 	}
 	Nobody
   }
 
   private def detectDiagonalWinner(): Player = {
-	if (board(0)(0) != Nobody
-	  	&& board(0)(0) == board(1)(1)
-	  	&& board(0)(0) == board(2)(2)) {
-	  return board(0)(0)
+	if (cels(0)(0) != Nobody
+	  	&& cels(0)(0) == cels(1)(1)
+	  	&& cels(0)(0) == cels(2)(2)) {
+	  return cels(0)(0)
 	}
-	if (board(0)(2) != Nobody
-	  	&& board(0)(2) == board(1)(1)
-	  	&& board(0)(2) == board(2)(0)) {
-	  return board(0)(2)
+	if (cels(0)(2) != Nobody
+	  	&& cels(0)(2) == cels(1)(1)
+	  	&& cels(0)(2) == cels(2)(0)) {
+	  return cels(0)(2)
 	}
 	Nobody
   }
@@ -67,14 +67,14 @@ class TicTacToe {
   	var count = 0
   	for (row <- 0 until DIM) {
   		for (column <- 0 until DIM) {
-  			if (board(row)(column) == Nobody) count += 1
+  			if (cels(row)(column) == Nobody) count += 1
   		}
   	}
   	count
   }
 
   def move(row: Int, column: Int) {
-  	board(row)(column) = currentPlayer
+  	cels(row)(column) = currentPlayer
   	currentPlayer = if (currentPlayer == PlayerX) PlayerO else PlayerX
   }
 }
