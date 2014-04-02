@@ -59,4 +59,16 @@ class TicTacToe {
 	}
 	Nobody
   }
+
+  def detectTie() =  detectWinner == Nobody && countEmptyCells == 0
+
+  private def countEmptyCells() = {
+  	var count = 0
+  	for (row <- 0 until DIM) {
+  		for (column <- 0 until DIM) {
+  			if (board(row)(column) == Nobody) count += 1
+  		}
+  	}
+  	count
+  }
 }

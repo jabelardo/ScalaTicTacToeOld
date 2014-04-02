@@ -75,4 +75,15 @@ class TicTacToeSpec extends Specification {
   		}
   	}
 
+	"detectTie" should {
+  		"return true if the board is full and there is not a winner" in {
+  			val ticTacToe = new TicTacToe
+  			ticTacToe.board = buildBoard(
+  				              Array(Array('X','O','X'),
+  		                            Array('O','O','X'),
+  		                            Array('X','X','O')))
+  			ticTacToe.detectTie must beEqualTo(true)
+  		}
+  	}
+
 }
