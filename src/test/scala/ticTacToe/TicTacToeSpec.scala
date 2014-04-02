@@ -40,4 +40,39 @@ class TicTacToeSpec extends Specification {
     	}
   	}
 
+	"detectWinner" should {
+  		"return Nobody if there is not a winner" in {
+  			val ticTacToe = new TicTacToe
+  			ticTacToe.detectWinner must beEqualTo(Nobody)
+  		}
+  		"return PlayerX if it has a winning row" in {
+  			val ticTacToe = new TicTacToe
+  			ticTacToe.board = buildBoard(Array(Array('X','X','X'),
+  		                            		   Array('O',' ','O'),
+  		                            		   Array(' ',' ',' ')))
+  			ticTacToe.detectWinner must beEqualTo(PlayerX)
+  		}
+  		"return PlayerO if it has a winning column" in {
+  			val ticTacToe = new TicTacToe
+  			ticTacToe.board = buildBoard(Array(Array('O',' ','X'),
+  		                            	 	   Array('O','X',' '),
+  		                            	 	   Array('O',' ','X')))
+  			ticTacToe.detectWinner must beEqualTo(PlayerO)
+  		}
+  		"return PlayerX if it has a winning descending diagonal" in {
+  			val ticTacToe = new TicTacToe
+  			ticTacToe.board = buildBoard(Array(Array('X',' ',' '),
+  		                            		   Array('O','X','O'),
+  		                            		   Array(' ',' ','X')))
+  			ticTacToe.detectWinner must beEqualTo(PlayerX)
+  		}
+  		"return PlayerO if it has a winning ascending diagonal" in {
+  			val ticTacToe = new TicTacToe
+  			ticTacToe.board = buildBoard(Array(Array('X',' ','O'),
+	  		                            	   Array(' ','O','X'),
+	  		                            	   Array('O',' ','X')))
+  			ticTacToe.detectWinner must beEqualTo(PlayerO)
+  		}
+  	}
+
 }
