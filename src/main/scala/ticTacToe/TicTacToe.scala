@@ -16,6 +16,7 @@ case object Nobody extends Player(' ')
 class TicTacToe {
   val DIM = 3
   var board = Array.fill[Player](DIM, DIM) { Nobody } 
+  var currentPlayer: Player = PlayerX
 
   def detectWinner() = { 
   	var result = detectRowWinner

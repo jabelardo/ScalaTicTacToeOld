@@ -86,4 +86,11 @@ class TicTacToeSpec extends Specification {
   		}
   	}
 
+  	"currentPlayer" should {
+    	"be initialized with PlayerX" in {
+    		(new TicTacToe).currentPlayer must 
+      			beEqualTo(PlayerX)	
+    	}
+  	}
+
 }
