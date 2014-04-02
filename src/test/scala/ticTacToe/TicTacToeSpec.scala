@@ -7,12 +7,37 @@ package ticTacToe
  * Bonus problem: Let two players play tic-tac-toe.
  */
 import org.specs2.mutable._
+import scala.collection.mutable._
+
 class TicTacToeSpec extends Specification {
  	
+  	def buildBoard(array: Array[Array[Char]]): Array[Array[Player]] = {
+  		var boardBuilder = new ArrayBuffer[Array[Player]]()
+		 for (rowIdx <- 0 until array.size) {
+		 	val row = array(rowIdx)
+		 	var rowBuilder = new ArrayBuffer[Player]()
+	   	    for (columnIdx <- 0 until row.size) {
+	   	    	if (row(columnIdx) == 'X') {
+					rowBuilder += PlayerX
+   	    		} else if (row(columnIdx) == 'O') {
+					rowBuilder += PlayerO
+    			} else {
+					rowBuilder += Nobody
+    			}
+		   }  		
+		   boardBuilder += rowBuilder.toArray
+	   	}
+	   	boardBuilder.toArray
+  	}
+
  	"board" should {
     	"be initialized as a 3 X 3 array of blank characters" in {
-      		(new TicTacToe).board.deep must 
-      			beEqualTo(Array.fill[Char](3,3){' '}.deep)
+    		val ticTacToe = new TicTacToe
+    		val blankBoard = buildBoard(Array(Array(' ',' ',' '),
+					                          Array(' ',' ',' '),
+					                          Array(' ',' ',' ')))
+      		ticTacToe.board.deep must beEqualTo(blankBoard.deep)
     	}
   	}
+
 }

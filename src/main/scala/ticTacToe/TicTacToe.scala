@@ -6,9 +6,14 @@ package ticTacToe
  *
  * Bonus problem: Let two players play tic-tac-toe.
  */
- 
+ import scala.collection.mutable._
 
+abstract class Player(value: Char) { def value(): Char = value }
+case object PlayerX extends Player('X')
+case object PlayerO extends Player('O')
+case object Nobody extends Player(' ')
 
 class TicTacToe {
-  var board = Array.fill[Char](3, 3){' '} 
+  val DIM = 3
+  var board = Array.fill[Player](DIM, DIM){ Nobody } 
 }
