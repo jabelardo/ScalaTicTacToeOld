@@ -78,10 +78,9 @@ class TicTacToeSpec extends Specification {
 	"detectTie" should {
   		"return true if the board is full and there is not a winner" in {
   			val ticTacToe = new TicTacToe
-  			ticTacToe.board = buildBoard(
-  				              Array(Array('X','O','X'),
-  		                            Array('O','O','X'),
-  		                            Array('X','X','O')))
+  			ticTacToe.board = buildBoard(Array(Array('X','O','X'),
+  		                            		   Array('O','O','X'),
+  		                            		   Array('X','X','O')))
   			ticTacToe.detectTie must beEqualTo(true)
   		}
   	}
@@ -91,6 +90,25 @@ class TicTacToeSpec extends Specification {
     		(new TicTacToe).currentPlayer must 
       			beEqualTo(PlayerX)	
     	}
+  	}
+
+  	"move" should {
+  		"set current player letter to the move position" in {
+  			val ticTacToe = new TicTacToe
+  			ticTacToe.move(0,0)
+  			ticTacToe.board(0)(0) must beEqualTo(PlayerX)
+  		}
+  		"turn currentPlayer from X to O" in {
+  			val ticTacToe = new TicTacToe
+  			ticTacToe.move(0,0)
+  			ticTacToe.currentPlayer must beEqualTo(PlayerO)
+  		}
+  		"turn currentPlayer from O to X" in {
+  			val ticTacToe = new TicTacToe
+  			ticTacToe.move(0,0)
+  			ticTacToe.move(0,1)
+  			ticTacToe.currentPlayer must beEqualTo(PlayerX)
+  		}
   	}
 
 }

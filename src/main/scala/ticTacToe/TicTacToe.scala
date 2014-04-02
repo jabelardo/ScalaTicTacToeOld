@@ -72,4 +72,9 @@ class TicTacToe {
   	}
   	count
   }
+
+  def move(row: Int, column: Int) {
+  	board(row)(column) = currentPlayer
+  	currentPlayer = if (currentPlayer == PlayerX) PlayerO else PlayerX
+  }
 }
