@@ -36,7 +36,7 @@ class TicTacToeSpec extends Specification {
     		val blankBoard = buildCells(Array(Array(' ',' ',' '),
 					                          Array(' ',' ',' '),
 					                          Array(' ',' ',' ')))
-      		board.cels.deep must beEqualTo(blankBoard.deep)
+      		board.cells.deep must beEqualTo(blankBoard.deep)
     	}
   	}
 
@@ -47,28 +47,28 @@ class TicTacToeSpec extends Specification {
   		}
   		"return PlayerX if it has a winning row" in {
   			val board = new Board
-  			board.cels = buildCells(Array(Array('X','X','X'),
+  			board.cells = buildCells(Array(Array('X','X','X'),
   		                            		   Array('O',' ','O'),
   		                            		   Array(' ',' ',' ')))
   			board.detectWinner must beEqualTo(PlayerX)
   		}
   		"return PlayerO if it has a winning column" in {
   			val board = new Board
-  			board.cels = buildCells(Array(Array('O',' ','X'),
+  			board.cells = buildCells(Array(Array('O',' ','X'),
   		                            	 	   Array('O','X',' '),
   		                            	 	   Array('O',' ','X')))
   			board.detectWinner must beEqualTo(PlayerO)
   		}
   		"return PlayerX if it has a winning descending diagonal" in {
   			val board = new Board
-  			board.cels = buildCells(Array(Array('X',' ',' '),
+  			board.cells = buildCells(Array(Array('X',' ',' '),
   		                            		   Array('O','X','O'),
   		                            		   Array(' ',' ','X')))
   			board.detectWinner must beEqualTo(PlayerX)
   		}
   		"return PlayerO if it has a winning ascending diagonal" in {
   			val board = new Board
-  			board.cels = buildCells(Array(Array('X',' ','O'),
+  			board.cells = buildCells(Array(Array('X',' ','O'),
 	  		                            	   Array(' ','O','X'),
 	  		                            	   Array('O',' ','X')))
   			board.detectWinner must beEqualTo(PlayerO)
@@ -78,7 +78,7 @@ class TicTacToeSpec extends Specification {
 	"detectTie" should {
   		"return true if the board is full and there is not a winner" in {
   			val board = new Board
-  			board.cels = buildCells(Array(Array('X','O','X'),
+  			board.cells = buildCells(Array(Array('X','O','X'),
   		                            		   Array('O','O','X'),
   		                            		   Array('X','X','O')))
   			board.detectTie must beEqualTo(true)
@@ -96,7 +96,7 @@ class TicTacToeSpec extends Specification {
   		"set current player letter to the move position" in {
   			val board = new Board
   			board.move(0,0)
-  			board.cels(0)(0) must beEqualTo(PlayerX)
+  			board.cells(0)(0) must beEqualTo(PlayerX)
   		}
   		"turn currentPlayer from X to O" in {
   			val board = new Board

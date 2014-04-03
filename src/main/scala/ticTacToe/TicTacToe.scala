@@ -15,7 +15,7 @@ case object Nobody extends Player(' ')
 
 class Board {
   val DIM = 3
-  var cels = Array.fill[Player](DIM, DIM) { Nobody } 
+  var cells = Array.fill[Player](DIM, DIM) { Nobody } 
   var currentPlayer: Player = PlayerX
 
   def detectWinner() = { 
@@ -27,10 +27,10 @@ class Board {
 
   private def detectRowWinner(): Player = {
 	for (row <- 0 until DIM) {
-	  if (cels(row)(0) != Nobody
-	  	  && cels(row)(0) == cels(row)(1) 
-	  	  && cels(row)(0) == cels(row)(2)) {
-	  	return cels(row)(0)
+	  if (cells(row)(0) != Nobody
+	  	  && cells(row)(0) == cells(row)(1) 
+	  	  && cells(row)(0) == cells(row)(2)) {
+	  	return cells(row)(0)
 	  }
 	}
 	Nobody
@@ -38,25 +38,25 @@ class Board {
 
   private def detectColumnWinner(): Player = {
 	for (column <- 0 until DIM) {
-	  if (cels(0)(column) != Nobody
-	  	  && cels(0)(column) == cels(1)(column)
-	  	  && cels(0)(column) == cels(2)(column)) {
-	  	return cels(0)(column)
+	  if (cells(0)(column) != Nobody
+	  	  && cells(0)(column) == cells(1)(column)
+	  	  && cells(0)(column) == cells(2)(column)) {
+	  	return cells(0)(column)
 	  }
 	}
 	Nobody
   }
 
   private def detectDiagonalWinner(): Player = {
-	if (cels(0)(0) != Nobody
-	  	&& cels(0)(0) == cels(1)(1)
-	  	&& cels(0)(0) == cels(2)(2)) {
-	  return cels(0)(0)
+	if (cells(0)(0) != Nobody
+	  	&& cells(0)(0) == cells(1)(1)
+	  	&& cells(0)(0) == cells(2)(2)) {
+	  return cells(0)(0)
 	}
-	if (cels(0)(2) != Nobody
-	  	&& cels(0)(2) == cels(1)(1)
-	  	&& cels(0)(2) == cels(2)(0)) {
-	  return cels(0)(2)
+	if (cells(0)(2) != Nobody
+	  	&& cells(0)(2) == cells(1)(1)
+	  	&& cells(0)(2) == cells(2)(0)) {
+	  return cells(0)(2)
 	}
 	Nobody
   }
@@ -67,14 +67,14 @@ class Board {
   	var count = 0
   	for (row <- 0 until DIM) {
   		for (column <- 0 until DIM) {
-  			if (cels(row)(column) == Nobody) count += 1
+  			if (cells(row)(column) == Nobody) count += 1
   		}
   	}
   	count
   }
 
   def move(row: Int, column: Int) {
-  	cels(row)(column) = currentPlayer
+  	cells(row)(column) = currentPlayer
   	currentPlayer = if (currentPlayer == PlayerX) PlayerO else PlayerX
   }
 }
