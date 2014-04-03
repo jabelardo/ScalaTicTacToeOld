@@ -105,3 +105,67 @@ class Game {
   def detectTie() = board.detectTie
 }
 
+object GameRunner {
+
+	var game = new Game
+	val DIM = 3
+	
+	def printBoard() {
+		println("  0 1 2")
+		for (row <- 0 until DIM) {
+			print(row)
+			for (column <- 0 until DIM) {
+				print(" " + game.cell(row, column).value)
+			}
+			println()
+		}
+	}
+
+	def printPossibleMoves() {
+		val possibleMoves = game.possibleMoves
+		print("Moves: ")
+		for (i  <- 0 until possibleMoves.size) {
+			print(i + ":" + possibleMoves(i) + " ")
+		}
+		println
+	}
+
+	def printInputPrompt() {
+		printPossibleMoves
+		print("Player " + game.currentPlayer.value +
+			    ", enter your move number or 'q' to quit: ")
+	}
+
+	def safeStringToInt(str: String): Option[Int] = try {
+   			Some(str.toInt)
+		} catch {
+   			case ex: NumberFormatException => None
+	}
+
+	def main(args: Array[String]) {
+		printBoard
+		printInputPrompt
+
+ 		for (ln <- io.Source.stdin.getLines) {
+            if (ln equalsIgnoreCase "q") return
+            val possibleMoves = game.possibleMoves
+            val imput = safeStringToInt(ln)
+            if (imput.isEmpty || imput.get < 0 || imput.get > possibleMoves.size - 1) {
+            	print("Invalid imput: ")
+        	} else {
+        		val move = possibleMoves(imput.get)
+        		game.move(move._1, move._2)
+        		printBoard
+        		if (game.detectWinner != Nobody) {
+        			println("The winner is " + game.lastPlayer.value)
+        			return
+        		} else if (game.detectTie) {
+        			println("The game ends in a tie")
+        			return
+    			} else {
+    				printInputPrompt
+    			}
+        	}
+ 		}
+ 	}
+}
