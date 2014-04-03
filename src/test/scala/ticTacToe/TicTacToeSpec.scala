@@ -13,19 +13,19 @@ class TicTacToeSpec extends Specification {
  	
   	def buildCells(array: Array[Array[Char]]): Array[Array[Player]] = {
   		var cellsBuilder = new ArrayBuffer[Array[Player]]()
-		 for (rowIdx <- 0 until array.size) {
-		 	val row = array(rowIdx)
-		 	var rowBuilder = new ArrayBuffer[Player]()
-	   	    for (columnIdx <- 0 until row.size) {
-	   	    	if (row(columnIdx) == 'X') {
-					rowBuilder += PlayerX
-   	    		} else if (row(columnIdx) == 'O') {
-					rowBuilder += PlayerO
-    			} else {
-					rowBuilder += Nobody
-    			}
-		   }  		
-		   cellsBuilder += rowBuilder.toArray
+		  for (rowIdx <- 0 until array.size) {
+  		 	val row = array(rowIdx)
+  		 	var rowBuilder = new ArrayBuffer[Player]()
+  	   	for (columnIdx <- 0 until row.size) {
+          if (row(columnIdx) == 'X') {
+  					rowBuilder += PlayerX
+     	    } else if (row(columnIdx) == 'O') {
+  					rowBuilder += PlayerO
+      		} else {
+  					rowBuilder += Nobody
+      		}
+  		  }  		
+  		  cellsBuilder += rowBuilder.toArray
 	   	}
 	   	cellsBuilder.toArray
   	}
@@ -96,7 +96,7 @@ class TicTacToeSpec extends Specification {
   		"set current player letter to the move position" in {
   			val game = new Game
   			game.move(0,0)
-  			game.board.cells(0)(0) must beEqualTo(PlayerX)
+  			game.cell(0,0) must beEqualTo(PlayerX)
   		}
   		"turn currentPlayer from X to O" in {
   			val game = new Game
