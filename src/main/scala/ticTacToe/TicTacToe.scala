@@ -11,7 +11,7 @@ package ticTacToe
 abstract class Player(value: Char) { def value(): Char = value }
 case object PlayerX extends Player('X')
 case object PlayerO extends Player('O')
-case object Nobody extends Player(' ')
+case object Nobody extends Player('.')
 
 class Board {
   val DIM = 3
@@ -74,8 +74,8 @@ class Board {
 
   def possibleMoves() = {
   	var builder = new ArrayBuffer[(Int,Int)]()
-	for (column <- 0 until DIM) {
-  	  for (row <- 0 until DIM) {
+	for (row <- 0 until DIM) {
+  	  for (column <- 0 until DIM) {
 	    if (cells(row)(column) == Nobody) {
 	      builder += Pair(row, column)
 	    }
@@ -88,12 +88,20 @@ class Board {
 class Game {
   var board = new Board
   var currentPlayer: Player = PlayerX
-
+  var lastPlayer: Player = null
 
   def move(row: Int, column: Int) {
   	board.cells(row)(column) = currentPlayer
+  	lastPlayer = currentPlayer
   	currentPlayer = if (currentPlayer == PlayerX) PlayerO else PlayerX
   }
 
   def possibleMoves() = board.possibleMoves
+
+  def cell(row: Int, column: Int) = board.cells(row)(column)
+
+  def detectWinner() = board.detectWinner
+
+  def detectTie() = board.detectTie
 }
+
