@@ -87,27 +87,27 @@ class TicTacToeSpec extends Specification {
 
   	"currentPlayer" should {
     	"be initialized with PlayerX" in {
-    		val board = new Board
-    		board.currentPlayer must beEqualTo(PlayerX)	
+    		val game = new Game
+    		game.currentPlayer must beEqualTo(PlayerX)	
     	}
   	}
 
   	"move" should {
   		"set current player letter to the move position" in {
-  			val board = new Board
-  			board.move(0,0)
-  			board.cells(0)(0) must beEqualTo(PlayerX)
+  			val game = new Game
+  			game.move(0,0)
+  			game.board.cells(0)(0) must beEqualTo(PlayerX)
   		}
   		"turn currentPlayer from X to O" in {
-  			val board = new Board
-  			board.move(0,0)
-  			board.currentPlayer must beEqualTo(PlayerO)
+  			val game = new Game
+  			game.move(0,0)
+  			game.currentPlayer must beEqualTo(PlayerO)
   		}
   		"turn currentPlayer from O to X" in {
-  			val board = new Board
-  			board.move(0,0)
-  			board.move(0,1)
-  			board.currentPlayer must beEqualTo(PlayerX)
+  			val game = new Game
+  			game.move(0,0)
+  			game.move(0,1)
+  			game.currentPlayer must beEqualTo(PlayerX)
   		}
   	}
 

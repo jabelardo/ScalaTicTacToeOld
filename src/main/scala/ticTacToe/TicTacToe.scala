@@ -16,7 +16,6 @@ case object Nobody extends Player(' ')
 class Board {
   val DIM = 3
   var cells = Array.fill[Player](DIM, DIM) { Nobody } 
-  var currentPlayer: Player = PlayerX
 
   def detectWinner() = { 
   	var result = detectRowWinner
@@ -72,9 +71,15 @@ class Board {
   	}
   	count
   }
+}
+
+class Game {
+  var board = new Board
+  var currentPlayer: Player = PlayerX
+
 
   def move(row: Int, column: Int) {
-  	cells(row)(column) = currentPlayer
+  	board.cells(row)(column) = currentPlayer
   	currentPlayer = if (currentPlayer == PlayerX) PlayerO else PlayerX
   }
 }
