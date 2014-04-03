@@ -111,7 +111,26 @@ class TicTacToeSpec extends Specification {
   		}
   	}
 
+ 	"possibleMoves" should {
+  		"list possible moves for initial position" in { 			
+  			val game = new Game
+  			game.possibleMoves must 
+  				beEqualTo(Array((0,0),(1,0),(2,0),
+  					            (0,1),(1,1),(2,1),
+  					            (0,2),(1,2),(2,2)))
+  		}
 
+  		"list possible moves for a position" in {			
+  			val game = new Game
+  			game.move(0,0)
+  			game.move(1,1)
+  			game.move(2,2)
+  			game.possibleMoves must 
+  				beEqualTo(Array((1,0),(2,0),
+  					            (0,1),(2,1),
+  					            (0,2),(1,2)))
+  		}
+  	}
 
 
 }

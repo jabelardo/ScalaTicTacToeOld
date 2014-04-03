@@ -71,6 +71,18 @@ class Board {
   	}
   	count
   }
+
+  def possibleMoves() = {
+  	var builder = new ArrayBuffer[(Int,Int)]()
+	for (column <- 0 until DIM) {
+  	  for (row <- 0 until DIM) {
+	    if (cells(row)(column) == Nobody) {
+	      builder += Pair(row, column)
+	    }
+	  }  		
+  	}
+  	builder.toArray
+  }
 }
 
 class Game {
@@ -82,4 +94,6 @@ class Game {
   	board.cells(row)(column) = currentPlayer
   	currentPlayer = if (currentPlayer == PlayerX) PlayerO else PlayerX
   }
+
+  def possibleMoves() = board.possibleMoves
 }
